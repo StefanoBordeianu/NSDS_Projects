@@ -1,0 +1,1734 @@
+[
+    {
+        "id": "e9535f3db9bb5c83",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d75c5294f1fb6d2e",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e06805297e78950e",
+        "type": "tab",
+        "label": "Exercise 0",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "942cd3c6571913c2",
+        "type": "tab",
+        "label": "Exercise 3",
+        "disabled": true,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b462ca1c136d685b",
+        "type": "tab",
+        "label": "Exercise 0",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "0f151f4e8830187e",
+        "type": "tab",
+        "label": "Exercise 0",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "227eb15c.8af2e6",
+        "type": "tab",
+        "label": "Exercise 7",
+        "disabled": true,
+        "info": ""
+    },
+    {
+        "id": "3aae462e8bfaef3b",
+        "type": "tab",
+        "label": "Node-red Project",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "89a8c47387543c38",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8096cf17.b81cf8",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "mqtt.neslab.it",
+        "port": "3200",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "compatmode": false,
+        "protocolVersion": 4,
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": ""
+    },
+    {
+        "id": "1e263e43b114a5fd",
+        "type": "mqtt-broker",
+        "name": "HiveMQ",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "bb4eee1027ba95ad",
+        "type": "inject",
+        "z": "e9535f3db9bb5c83",
+        "name": "Trigger execution ",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "time",
+        "payload": "iso",
+        "payloadType": "date",
+        "x": 140,
+        "y": 340,
+        "wires": [
+            [
+                "c819a92c2dbf3723"
+            ]
+        ]
+    },
+    {
+        "id": "03dcb727eb98707d",
+        "type": "udp out",
+        "z": "e9535f3db9bb5c83",
+        "name": "Send UDP",
+        "addr": "127.0.0.1",
+        "iface": "",
+        "port": "8912",
+        "ipv": "udp4",
+        "outport": "",
+        "base64": false,
+        "multicast": "false",
+        "x": 730,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "7ab54ef4d86c83f4",
+        "type": "udp in",
+        "z": "e9535f3db9bb5c83",
+        "name": "Receive udp msg",
+        "iface": "",
+        "port": "8912",
+        "ipv": "udp4",
+        "multicast": "false",
+        "group": "",
+        "datatype": "utf8",
+        "x": 80,
+        "y": 680,
+        "wires": [
+            [
+                "686f93bb597f1f76"
+            ]
+        ]
+    },
+    {
+        "id": "ed4ce54c656aaea0",
+        "type": "debug",
+        "z": "e9535f3db9bb5c83",
+        "name": "payload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 800,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "c819a92c2dbf3723",
+        "type": "function",
+        "z": "e9535f3db9bb5c83",
+        "name": "function 1",
+        "func": "let newPayload = {\n    greeting : \"Hello\",\n    ts : msg.payload\n};\nlet newMsg = {\n    topic : msg.topic,\n    payload : newPayload,\n    _msgid: msg._msgid\n};\n\nreturn newMsg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 340,
+        "wires": [
+            [
+                "c1bdbd2d45ae93a0"
+            ]
+        ]
+    },
+    {
+        "id": "c1bdbd2d45ae93a0",
+        "type": "json",
+        "z": "e9535f3db9bb5c83",
+        "name": "From js to JSON",
+        "property": "payload",
+        "action": "str",
+        "pretty": false,
+        "x": 580,
+        "y": 280,
+        "wires": [
+            [
+                "03dcb727eb98707d",
+                "47a643b410fbef97"
+            ]
+        ]
+    },
+    {
+        "id": "686f93bb597f1f76",
+        "type": "json",
+        "z": "e9535f3db9bb5c83",
+        "name": "from JSON to js",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 440,
+        "y": 680,
+        "wires": [
+            [
+                "ed4ce54c656aaea0"
+            ]
+        ]
+    },
+    {
+        "id": "47a643b410fbef97",
+        "type": "debug",
+        "z": "e9535f3db9bb5c83",
+        "name": "payload serialized",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 810,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "c9063ffeeefc2495",
+        "type": "inject",
+        "z": "d75c5294f1fb6d2e",
+        "name": "Trigger every 5 sec",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 220,
+        "wires": [
+            [
+                "0ffe843ee3fe0587",
+                "40ff3ef0631b176c"
+            ]
+        ]
+    },
+    {
+        "id": "0ffe843ee3fe0587",
+        "type": "delay",
+        "z": "d75c5294f1fb6d2e",
+        "name": "",
+        "pauseType": "delay",
+        "timeout": "5",
+        "timeoutUnits": "seconds",
+        "rate": "1",
+        "nbRateUnits": "1",
+        "rateUnits": "second",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": false,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 340,
+        "y": 380,
+        "wires": [
+            [
+                "a34ea9658bee8c7c"
+            ]
+        ]
+    },
+    {
+        "id": "40ff3ef0631b176c",
+        "type": "debug",
+        "z": "d75c5294f1fb6d2e",
+        "name": "print ts",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 510,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "a34ea9658bee8c7c",
+        "type": "e-mail",
+        "z": "d75c5294f1fb6d2e",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "",
+        "dname": "",
+        "x": 530,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "20f9b5c22a82e2f1",
+        "type": "inject",
+        "z": "e06805297e78950e",
+        "name": "Set email prop",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Hello world!",
+        "payloadType": "str",
+        "x": 110,
+        "y": 300,
+        "wires": [
+            [
+                "97c949bd4c099280"
+            ]
+        ]
+    },
+    {
+        "id": "97c949bd4c099280",
+        "type": "openweathermap",
+        "z": "e06805297e78950e",
+        "name": "Tempo",
+        "wtype": "current",
+        "lon": "",
+        "lat": "",
+        "city": "Milan",
+        "country": "IT",
+        "language": "it",
+        "x": 370,
+        "y": 300,
+        "wires": [
+            [
+                "9732a3c2341743a9",
+                "2c8e41f12f875e8b"
+            ]
+        ]
+    },
+    {
+        "id": "2c8e41f12f875e8b",
+        "type": "debug",
+        "z": "e06805297e78950e",
+        "name": "log tempo",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "69ef8accf0838dab",
+        "type": "file",
+        "z": "e06805297e78950e",
+        "name": "log-tempo.txt",
+        "filename": "C:\\Users\\gabrolo\\Desktop\\Materie\\NSDS\\Node-red\\log-tempo.txt",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": false,
+        "overwriteFile": "false",
+        "encoding": "none",
+        "x": 630,
+        "y": 460,
+        "wires": [
+            [
+                "c3f6f9d1bec96d83"
+            ]
+        ]
+    },
+    {
+        "id": "c3f6f9d1bec96d83",
+        "type": "debug",
+        "z": "e06805297e78950e",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "9732a3c2341743a9",
+        "type": "function",
+        "z": "e06805297e78950e",
+        "name": "function 3",
+        "func": "\nlet tempc = msg.payload.tempc;\nlet id = msg.payload.id;\nmsg.payload = {\n    \"id\" : id,\n    \"temp\" : tempc\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 460,
+        "wires": [
+            [
+                "69ef8accf0838dab"
+            ]
+        ]
+    },
+    {
+        "id": "e67aba63ed6b9769",
+        "type": "inject",
+        "z": "942cd3c6571913c2",
+        "name": "Hello World!",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "cc",
+                "v": "lmottola@gmail.com",
+                "vt": "str"
+            },
+            {
+                "p": "to",
+                "v": "luca.mottola@polimi.it",
+                "vt": "str"
+            },
+            {
+                "p": "timestamp",
+                "v": "",
+                "vt": "date"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "My Own Subject",
+        "payload": "Hello World",
+        "payloadType": "str",
+        "x": 255,
+        "y": 183,
+        "wires": [
+            [
+                "abdbc6ca90010f86"
+            ]
+        ]
+    },
+    {
+        "id": "c565b3392d60f4b7",
+        "type": "debug",
+        "z": "942cd3c6571913c2",
+        "name": "Print Msg!",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 548,
+        "y": 331,
+        "wires": []
+    },
+    {
+        "id": "6141ebab5037dc37",
+        "type": "e-mail",
+        "z": "942cd3c6571913c2",
+        "server": "smtps.aruba.it",
+        "port": "465",
+        "secure": true,
+        "tls": true,
+        "name": "",
+        "dname": "Send Mail!",
+        "x": 602,
+        "y": 175,
+        "wires": []
+    },
+    {
+        "id": "abdbc6ca90010f86",
+        "type": "function",
+        "z": "942cd3c6571913c2",
+        "name": "Process Msg",
+        "func": "let temp = msg.to;\nmsg.to = msg.cc;\nmsg.cc = temp;\n\ncontext.set(\"firstTimestamp\", context.get(\"secondTimestamp\"));\ncontext.set(\"secondTimestamp\", context.get(\"thirdTimestamp\"));\ncontext.set(\"thirdTimestamp\", msg.timestamp);\n\nmsg.payload = msg.payload + \" \" + msg.to + \" \" +\n              context.get(\"firstTimestamp\") + \" \" + \n              context.get(\"secondTimestamp\") + \" \" + \n              context.get(\"thirdTimestamp\") + \"!\";\n\nif (msg.timestamp % 2==0) {\n    return [ null, msg];\n} else {\n    return [ msg, null];\n}\n",
+        "outputs": 2,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\n\ncontext.set(\"firstTimestamp\", 0);\ncontext.set(\"secondTimestamp\", 0);\ncontext.set(\"thirdTimestamp\", 0);\n",
+        "finalize": "",
+        "libs": [],
+        "x": 384,
+        "y": 248,
+        "wires": [
+            [
+                "6141ebab5037dc37"
+            ],
+            [
+                "c565b3392d60f4b7"
+            ]
+        ]
+    },
+    {
+        "id": "1e0c960456053741",
+        "type": "inject",
+        "z": "b462ca1c136d685b",
+        "name": "Set email prop",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "cc",
+                "v": "emailcc@gmail.com",
+                "vt": "str"
+            },
+            {
+                "p": "to",
+                "v": "gabryelerolo@gmail.com",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Oggetto",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "6e5e11e9ae50cda8"
+            ]
+        ]
+    },
+    {
+        "id": "9ea73e103249b378",
+        "type": "debug",
+        "z": "b462ca1c136d685b",
+        "name": "Print Msg!",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6e5e11e9ae50cda8",
+        "type": "delay",
+        "z": "b462ca1c136d685b",
+        "name": "Limit 1msg/5min",
+        "pauseType": "rate",
+        "timeout": "5",
+        "timeoutUnits": "days",
+        "rate": "1",
+        "nbRateUnits": "5",
+        "rateUnits": "minute",
+        "randomFirst": "1",
+        "randomLast": "5",
+        "randomUnits": "seconds",
+        "drop": true,
+        "allowrate": false,
+        "outputs": 1,
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "9ea73e103249b378",
+                "5bfca195f25b410a"
+            ]
+        ]
+    },
+    {
+        "id": "5bfca195f25b410a",
+        "type": "e-mail",
+        "z": "b462ca1c136d685b",
+        "server": "smtps.aruba.it",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "gabryelerolo@gmail.com",
+        "dname": "Send email",
+        "x": 630,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "a82cb2a29c836023",
+        "type": "inject",
+        "z": "0f151f4e8830187e",
+        "name": "Set email prop",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "cc",
+                "v": "gabryelerolo@gmail.com",
+                "vt": "str"
+            },
+            {
+                "p": "to",
+                "v": "emailcc@gmail.com",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Oggetto",
+        "payload": "Hello world!",
+        "payloadType": "str",
+        "x": 140,
+        "y": 300,
+        "wires": [
+            [
+                "557dfdf1faddd22d"
+            ]
+        ]
+    },
+    {
+        "id": "7575f25bb7fea4f9",
+        "type": "debug",
+        "z": "0f151f4e8830187e",
+        "name": "Print Msg!",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "6f33767cabf3d9ce",
+        "type": "e-mail",
+        "z": "0f151f4e8830187e",
+        "server": "smtps.aruba.it",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": true,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": true,
+        "name": "gabryelerolo@gmail.com",
+        "dname": "Send email",
+        "x": 630,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "557dfdf1faddd22d",
+        "type": "function",
+        "z": "0f151f4e8830187e",
+        "name": "set new msg",
+        "func": "\nlet x = msg.cc;\nlet ts = Date.now();\nmsg.cc = msg.to;\nmsg.to = x;\nmsg.payload = msg.payload + \" \" + msg.to;\n\nif(ts % 2 == 0) return [null, msg] \nelse return [msg,null];\n",
+        "outputs": 2,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 410,
+        "y": 300,
+        "wires": [
+            [
+                "7575f25bb7fea4f9"
+            ],
+            [
+                "6f33767cabf3d9ce"
+            ]
+        ]
+    },
+    {
+        "id": "e436a005e701a8e6",
+        "type": "mqtt in",
+        "z": "227eb15c.8af2e6",
+        "name": "Subscribe to /smartcity/milan",
+        "topic": "/smartcity/milan",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "8096cf17.b81cf8",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 580,
+        "y": 240,
+        "wires": [
+            [
+                "55bd26f10a6cdfa5",
+                "f2503909fdf90ee4"
+            ]
+        ]
+    },
+    {
+        "id": "55bd26f10a6cdfa5",
+        "type": "debug",
+        "z": "227eb15c.8af2e6",
+        "name": "Show Sensor.commity Data",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 980,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "f2503909fdf90ee4",
+        "type": "function",
+        "z": "227eb15c.8af2e6",
+        "name": "Track Max",
+        "func": "for (let i = 0; i < msg.payload.sensordatavalues.length; i++){\n    if (msg.payload.sensordatavalues[i].value_type == \"P1\") {\n        if (Number(msg.payload.sensordatavalues[i].value)>context.get(\"maxPM25\")) {\n            context.set(\"maxPM25\", Number(msg.payload.sensordatavalues[i].value));\n        }\n    }\n    if (msg.payload.sensordatavalues[i].value_type == \"P2\") {\n        if (Number(msg.payload.sensordatavalues[i].value) > context.get(\"maxPM10\")) {\n            context.set(\"maxPM10\", Number(msg.payload.sensordatavalues[i].value));\n        }\n    }\n    if (msg.payload.sensordatavalues[i].value_type == \"temperature\") {\n        if (Number(msg.payload.sensordatavalues[i].value) > context.get(\"maxTemperature\")) {\n            context.set(\"maxTemperature\", Number(msg.payload.sensordatavalues[i].value));\n        }\n    }\n    if (msg.payload.sensordatavalues[i].value_type == \"humidity\") {\n        if (Number(msg.payload.sensordatavalues[i].value) > context.get(\"maxHumidity\")) {\n            context.set(\"maxHumidity\", Number(msg.payload.sensordatavalues[i].value));\n        }\n    }\n}\n\nlet newPayload = {\n    maxTemperature: context.get(\"maxTemperature\"),\n    maxHumidity: context.get(\"maxHumidity\"),\n    maxPM25: context.get(\"maxPM25\"),\n    maxPM10: context.get(\"maxPM10\"),\n};\n\nlet newMsg = { \n    topic: msg.topic, \n    payload: newPayload, \n    _msgid: msg._msgid, \n    };\n\nreturn newMsg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set(\"maxTemperature\", 0);\ncontext.set(\"maxHumidity\", 0);\ncontext.set(\"maxPM25\", 0);\ncontext.set(\"maxPM10\", 0);\n",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 340,
+        "wires": [
+            [
+                "d475bd15c8c5a2aa"
+            ]
+        ]
+    },
+    {
+        "id": "d475bd15c8c5a2aa",
+        "type": "debug",
+        "z": "227eb15c.8af2e6",
+        "name": "Show Current Max",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1070,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "9c6ba374a9a1393e",
+        "type": "function",
+        "z": "3aae462e8bfaef3b",
+        "name": "set group in map",
+        "func": "let groupMap = global.get('groupMap') || {};\ngroupMap[msg.payload.group] = Date.now();\n\nglobal.set('groupMap', groupMap);\n\nmsg.payload = \"Create group: \" + msg.payload.group;\n\nnode.warn(\"Group Map after creation: \" + JSON.stringify(groupMap));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set(\"maxPM25\", 0);\n",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 540,
+        "wires": [
+            [
+                "9db7fa807c8f9d68"
+            ]
+        ]
+    },
+    {
+        "id": "9db7fa807c8f9d68",
+        "type": "debug",
+        "z": "3aae462e8bfaef3b",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "6d12b9efed50fa45",
+        "type": "inject",
+        "z": "3aae462e8bfaef3b",
+        "name": "Cardinality",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "10",
+        "topic": "MQTT_CARDINALITY_TOPIC",
+        "payload": "{\"array_len\":3,\"group\":[123,234,345],\"is_removing\":0,\"addr\":345}",
+        "payloadType": "json",
+        "x": 120,
+        "y": 340,
+        "wires": [
+            [
+                "6d526faacf5a136b"
+            ]
+        ]
+    },
+    {
+        "id": "af4038fe1a578507",
+        "type": "inject",
+        "z": "3aae462e8bfaef3b",
+        "name": "Create",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "timestamp",
+                "v": "iso",
+                "vt": "date"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "7",
+        "topic": "MQTT_CREATE_TOPIC",
+        "payload": "{\"array_len\":2,\"group\":[]}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 540,
+        "wires": [
+            [
+                "9b7a56951a283d45"
+            ]
+        ]
+    },
+    {
+        "id": "1b1aad7287750bd4",
+        "type": "inject",
+        "z": "3aae462e8bfaef3b",
+        "d": true,
+        "name": "Delete",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "timestamp",
+                "v": "iso",
+                "vt": "date"
+            }
+        ],
+        "repeat": "120",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "30",
+        "topic": "MQTT_DELETE_TOPIC",
+        "payload": "{\"array_len\":2,\"group\":[]}",
+        "payloadType": "json",
+        "x": 120,
+        "y": 660,
+        "wires": [
+            [
+                "5adc4484e720feeb"
+            ]
+        ]
+    },
+    {
+        "id": "eaafc393bdb2cb4a",
+        "type": "function",
+        "z": "3aae462e8bfaef3b",
+        "name": "delete group in map",
+        "func": "let groupMap = global.get('groupMap') || {};\nlet lifetimeMap = global.get('lifetimeMap') || {};\nlet time;\n\n\nif(groupMap[msg.payload.group])\n{\n    time = Date.now() - groupMap[msg.payload.group];\n    node.warn(\"time :  \" + JSON.stringify(time));\n    lifetimeMap[msg.payload.group] = time;\n    delete groupMap[msg.payload.group];\n    global.set('groupMap', groupMap);\n    global.set('lifetimeMap', lifetimeMap);\n\n    msg.payload = \"Il gruppo : \" + msg.payload.group + \" e' durato : \" + time;\n} else{\n    msg.payload = \"Il gruppo non è stato creato ancora \";\n}\n    \nnode.warn(\"Group Map after deletion: \" + JSON.stringify(groupMap));\n    node.warn(\"Lifetime Map: \" + JSON.stringify(lifetimeMap));\n    \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set(\"maxPM25\", 0);\n",
+        "finalize": "",
+        "libs": [],
+        "x": 720,
+        "y": 660,
+        "wires": [
+            [
+                "40f5eeafe96168f0"
+            ]
+        ]
+    },
+    {
+        "id": "40f5eeafe96168f0",
+        "type": "debug",
+        "z": "3aae462e8bfaef3b",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "9452b019f6f66dc7",
+        "type": "function",
+        "z": "3aae462e8bfaef3b",
+        "name": "Cardinality check",
+        "func": "\nfunction createNodo(key,keyCheck,cardinality){\n\n    node.warn(\"statsMap[keycheck]: \" + JSON.stringify(statsMap[keyCheck]));\n\n    if (statsMap[keyCheck] != null){\n\n\n        node.warn(\"Gruppo vecchio: \" + JSON.stringify(groupMap[keyCheck]));\n        node.warn(\"statsmap vecchio check: \" +  JSON.stringify(statsMap[keyCheck]));\n        statsMap[keyCheck].cardinalities.push(cardinality);\n        if (cardinality > statsMap[keyCheck].max) statsMap[keyCheck].max = cardinality;\n        if (cardinality < statsMap[keyCheck].min) statsMap[keyCheck].min = cardinality;\n        statsMap[keyCheck].sum += cardinality;\n        statsMap[keyCheck].count++;\n        statsMap[keyCheck].average = statsMap[keyCheck].sum / statsMap[keyCheck].count\n        node.warn(\"statsmap nuovo check: \" +  JSON.stringify(statsMap[keyCheck]));\n\n        statsMap[key] = statsMap[keyCheck];\n        groupMap[key] = groupMap[keyCheck];\n\n        delete statsMap[keyCheck];\n        delete groupMap[keyCheck];\n\n        node.warn(\"statsmap nuovo: \" +  JSON.stringify(statsMap[key]));\n        node.warn(\"Gruppo nuovo: \" +  JSON.stringify(groupMap));\n\n        global.set('groupMap', groupMap);\n\n        let groupMap2 = global.get('groupMap') || {}; \n        node.warn(\"Prova finale: \" + JSON.stringify(groupMap2));\n    }else{\n        node.warn(\"Nodo non ancora creato\");\n        return;\n    }\n        \n\n}\n\nlet statsMap = context.get('statsMap') || {};\nlet groupMap = global.get('groupMap') || {}; \n\n\nnode.warn(\"groupMap: \" + JSON.stringify(groupMap));\n\n//caso is_removing = 1 -> group = group + addr\n//caso is_removing = 0 -> group = group - addr\n\nlet group = msg.payload.group.slice();\nlet groupcheck = msg.payload.group;\n\nlet key = group.join(',');\nnode.warn(\"key: \" + JSON.stringify(key));\n\nnode.warn(\"is_removing: \" + msg.payload.is_removing);\n\nif(msg.payload.is_removing == 1){\n    let cardinality = msg.payload.array_len;\n    groupcheck.push(msg.payload.addr);\n    let keyCheck = groupcheck.sort((a, b) => a - b).join(',');\n\n    node.warn(\"keyCheck: \" + JSON.stringify(keyCheck));\n\n    createNodo(key,keyCheck, cardinality);\n\n}else if (msg.payload.is_removing == 0){\n\n    let elementToRemove = msg.payload.addr;\n    let index = msg.payload.group.indexOf(elementToRemove); // Trova l'indice dell'elemento\n    let cardinality = msg.payload.array_len;\n\n    if (index > -1) {\n        groupcheck.splice(index, 1) ; // Rimuove l'elemento all'indice specificato\n    }\n\n    let keyCheck = groupcheck.sort((a, b) => a - b).join(',');\n\n    node.warn(\"keyCheck: \" + JSON.stringify(keyCheck));\n\n    createNodo(key,keyCheck, cardinality);\n    \n\n} else{\n\n    let cardinality = msg.payload.group.length;\n\n    if (statsMap[key] == null) {\n        statsMap[key] = {   // Inizializza l'oggetto\n            cardinalities: [cardinality],   // Inizializza l'array delle cardinalità\n            max: cardinality,\n            min: cardinality,\n            sum: cardinality,\n            count: 1,\n            average : cardinality\n        };\n\n        node.warn(\"Gruppo nuovo nuovo: \" + JSON.stringify(statsMap[key]));\n\n    }else{\n        node.warn(\"Nodo gia' creato\");\n    }\n}\n\n\ncontext.set('statsMap', statsMap);\n\nnode.warn(\"Stats Map after creation: \" + JSON.stringify(statsMap));\n\nmsg.payload = statsMap;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 710,
+        "y": 340,
+        "wires": [
+            [
+                "5048542f3f02ce81"
+            ]
+        ]
+    },
+    {
+        "id": "5048542f3f02ce81",
+        "type": "debug",
+        "z": "3aae462e8bfaef3b",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "6d526faacf5a136b",
+        "type": "function",
+        "z": "3aae462e8bfaef3b",
+        "name": "function 4",
+        "func": "let groupMap = global.get('groupMap') || {};\n\nlet chiavi = Object.keys(groupMap);\n\nif(chiavi.length != 0){\n    \n    let index = Math.floor(Math.random() * chiavi.length);\n    let chiaveScelta = chiavi[index];\n    let nodesMap = global.get('nodesMap') || {};\n\n    let group = chiaveScelta.split(\",\").map(Number);\n    let is_removing;\n\n    if(group.length == 3) is_removing = 0;\n    else is_removing = (Math.floor(Math.random() * 2));\n \n\n    if(is_removing == 0){\n\n        \n        let available_nodes = [];\n        let chiavi_nodes = Object.keys(nodesMap);\n        let newIp;\n        node.warn(\"chiavi\" + JSON.stringify(chiavi_nodes));\n\n\n        for(let i = 0; i<chiavi_nodes.length ; i++)\n        {\n            if (nodesMap[chiavi_nodes[i]].inGroup == false){\n                newIp = chiavi_nodes[i];\n                break;\n                }\n        }\n\n        let ip_ok = true;\n\n        if(newIp != null){\n\n            group.push(newIp);\n\n            group.sort((a, b) => a - b);\n\n\n            msg.payload.group = group;\n            msg.payload.array_len = group.length;\n            msg.payload.is_removing = is_removing;\n            msg.payload.addr = newIp;\n\n            nodesMap[newIp].inGroup = true;\n\n            global.set('nodesMap', nodesMap);\n\n            node.warn(\"Nodes map after cardinality, 0: \" + JSON.stringify(nodesMap));\n        }else\n        {\n            node.warn(\"Non ci sono nodi disponibili\");\n            return;\n\n        }\n\n        /*  Gestione randomica\n        do {\n\n\n            newIp = (Math.floor(Math.random() * 1000) + 1);\n            group.forEach(function (ip) {\n                if (newIp == ip) ip_ok = false;\n            });\n\n\n        } while (ip_ok != true);*/\n\n\n        \n\n    }else{\n\n        let removeIp;\n\n        node.warn(\"Gruppo: \" + JSON.stringify(group));\n        let index = Math.floor(Math.random() * group.length);\n        removeIp = group[index];\n        \n        group.splice(index, 1);\n\n        msg.payload.group = group;\n        msg.payload.array_len = group.length;\n        msg.payload.is_removing = is_removing;\n        msg.payload.addr = removeIp;\n\n        nodesMap[removeIp].inGroup = false;\n\n        global.set('nodesMap', nodesMap);\n\n        node.warn(\"Nodes map after cardinality, 1: \" + JSON.stringify(nodesMap));\n\n    }\n\n    node.warn(\"Gruppo modificato: \" + JSON.stringify(msg));\n\n    return msg;\n\n}else{\n    node.warn(\"Gruppo non creato\");\n    return;\n}\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 340,
+        "wires": [
+            [
+                "9452b019f6f66dc7",
+                "8780416a2b444904"
+            ]
+        ]
+    },
+    {
+        "id": "9b7a56951a283d45",
+        "type": "function",
+        "z": "3aae462e8bfaef3b",
+        "name": "function 5",
+        "func": "\nlet array_len = 3;\n\nlet payload = {\n    \"array_len\": array_len,\n    group: []\n};\n\n\nlet nodes_len;\nlet nodesMap = global.get('nodesMap') || {};\nlet available_nodes = {};\n\nlet chiavi = Object.keys(nodesMap);\nnode.warn(\"chiavi\" + JSON.stringify(chiavi));\n\nchiavi.forEach(function (node) {\n    if (nodesMap[node].inGroup == false) available_nodes[node] = nodesMap[node];\n            });\n\nnode.warn(\"available_nodes\" + JSON.stringify(available_nodes));\n\nlet chiavi_available = Object.keys(available_nodes);\n\nif (chiavi_available.length >= 3){\n\n    for (let i = 0; i < 3; i++) {\n\n        payload.group.push(chiavi_available[i]);\n\n        nodesMap[chiavi_available[i]].inGroup = true;\n\n        node.warn(\"Nodo modificato: \" + JSON.stringify(nodesMap[chiavi_available[i]]));\n    }\n\n}else{\n    node.warn(\"Non ci sono abbastanza nodi\");\n    return;\n}\n\npayload.group.sort((a, b) => a - b);\nmsg.payload = payload;\nglobal.set('nodesMap', nodesMap);\n\nnode.warn(\"Msg create: \" + JSON.stringify(msg));\nnode.warn(\"Nodes map after create group: \" + JSON.stringify(nodesMap));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 540,
+        "wires": [
+            [
+                "9c6ba374a9a1393e",
+                "8780416a2b444904",
+                "9452b019f6f66dc7"
+            ]
+        ]
+    },
+    {
+        "id": "5adc4484e720feeb",
+        "type": "function",
+        "z": "3aae462e8bfaef3b",
+        "name": "function 6",
+        "func": "let groupMap = global.get('groupMap') || {};\nlet chiavi = Object.keys(groupMap);\n\nif(chiavi.length != 0){\nlet index = Math.floor(Math.random() * chiavi.length);\nlet chiaveScelta = chiavi[index];\n\nlet group = chiaveScelta.split(\"-\");\nnode.warn(\"group: \" + JSON.stringify(group));\n\nmsg.payload.group = group;\nmsg.payload.array_len = group.length;\n    return msg;\n} else {\n    node.warn(\"Non ci sono gruppi creati\");\n    return;\n}\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 660,
+        "wires": [
+            [
+                "eaafc393bdb2cb4a"
+            ]
+        ]
+    },
+    {
+        "id": "cf57b89d6d1abcb6",
+        "type": "inject",
+        "z": "3aae462e8bfaef3b",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 760,
+        "wires": [
+            [
+                "13c049e850f1ce04"
+            ]
+        ]
+    },
+    {
+        "id": "13c049e850f1ce04",
+        "type": "function",
+        "z": "3aae462e8bfaef3b",
+        "name": "Delete",
+        "func": "\nglobal.keys().forEach(function(key) {\n    global.set(key, undefined);  // Elimina completamente ogni chiave\n});\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 330,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "04756241a5e98492",
+        "type": "inject",
+        "z": "3aae462e8bfaef3b",
+        "name": "Insert nodo",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "NODE_INSERT_TOPIC",
+        "payload": "{\"ip\":\"123\",\"nationality\":\"Italian\",\"age\":30}",
+        "payloadType": "json",
+        "x": 120,
+        "y": 180,
+        "wires": [
+            [
+                "e2b152a64a7d0366"
+            ]
+        ]
+    },
+    {
+        "id": "a5b02d86bd1517be",
+        "type": "function",
+        "z": "3aae462e8bfaef3b",
+        "name": "Save new node",
+        "func": "let nodesMap = global.get('nodesMap') || {};\nnodesMap[msg.payload.ip] = {\n    \"nationality\" : msg.payload.nationality,\n    \"age\" : msg.payload.age,\n    \"inGroup\" : false\n}\n\nglobal.set('nodesMap', nodesMap);\n\nmsg.payload = \"Create node: \" + msg.payload;\n\nnode.warn(\"Node Map after creation: \" + JSON.stringify(nodesMap));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 560,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e2b152a64a7d0366",
+        "type": "function",
+        "z": "3aae462e8bfaef3b",
+        "name": "function 7",
+        "func": "let new_ip;\nlet nodesMap = global.get('nodesMap') || {};\nlet chiavi = Object.keys(nodesMap);\nlet exist = false;\ndo{\n    new_ip = (Math.floor(Math.random() * 1000) + 1);\n    \n    chiavi.forEach(function (ip) {\n                if (new_ip == ip) exist = true;\n            });\n\n}while(exist);\n\nmsg.payload.ip = new_ip;\nmsg.payload.nationality = \"italian\";\nmsg.payload.age = (Math.floor(Math.random() * 50)+15);\n\nnode.warn(\"Node generated : \" + JSON.stringify(msg));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 300,
+        "y": 180,
+        "wires": [
+            [
+                "a5b02d86bd1517be"
+            ]
+        ]
+    },
+    {
+        "id": "8780416a2b444904",
+        "type": "function",
+        "z": "3aae462e8bfaef3b",
+        "name": "Send to socket",
+        "func": "let new_ip;\nlet nodesMap = global.get('nodesMap') || {};\nlet group = {};\n\nnode.warn(\"Gruppo payload: \" + JSON.stringify(msg.payload.group));\n\n\nif (msg.topic == 'MQTT_CREATE_TOPIC'){\n    msg.payload.group.forEach(function (ip) {\n        let singleMessage = {\n            \"ip\": ip,\n            \"nationality\": nodesMap[ip].nationality,\n            \"age\": nodesMap[ip].age\n        }\n\n        node.warn(\"SINGLE MSG: \" + JSON.stringify(singleMessage));\n\n        msg.payload = singleMessage;\n        node.send(msg);\n    });\n}else{\n\n    let ip = msg.payload.addr;\n    let singleMessage = {\n        \"ip\": ip,\n        \"nationality\": nodesMap[ip].nationality,\n        \"age\": nodesMap[ip].age\n    }\n\n    node.warn(\"SINGLE MSG: \" + JSON.stringify(singleMessage));\n\n    msg.payload = singleMessage;\n    node.send(msg);\n}\n\n\n//if(msg.topic == 'MQTT_CARDINALITY_TOPIC') msg.timestamp = Date.now();\n\n//msg.payload.group = group;\n\n//node.warn(\"Gruppo: \" + JSON.stringify(msg));\n\n\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 700,
+        "y": 460,
+        "wires": [
+            [
+                "d63d589a89cf9c06"
+            ]
+        ]
+    },
+    {
+        "id": "d63d589a89cf9c06",
+        "type": "debug",
+        "z": "3aae462e8bfaef3b",
+        "name": "debug 7",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "65325cb65c899988",
+        "type": "function",
+        "z": "89a8c47387543c38",
+        "name": "set group in map",
+        "func": "let groupMap = global.get('groupMap') || {};\ngroupMap[msg.payload.group] = Date.now();\n\nglobal.set('groupMap', groupMap);\n\nmsg.payload = \"Create group: \" + msg.payload.group;\n\nnode.warn(\"Group Map after creation: \" + JSON.stringify(groupMap));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set(\"maxPM25\", 0);\n",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 520,
+        "wires": [
+            [
+                "34f3a9bb8895d273"
+            ]
+        ]
+    },
+    {
+        "id": "34f3a9bb8895d273",
+        "type": "debug",
+        "z": "89a8c47387543c38",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "e9eb1cba1d78c594",
+        "type": "inject",
+        "z": "89a8c47387543c38",
+        "name": "Cardinality",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "10",
+        "topic": "MQTT_CARDINALITY_TOPIC",
+        "payload": "{\"array_len\":3,\"group\":[123,234,345],\"is_removing\":0,\"addr\":345}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 320,
+        "wires": [
+            [
+                "6a6fe3610c7f0c66"
+            ]
+        ]
+    },
+    {
+        "id": "40ccbe02819b891f",
+        "type": "inject",
+        "z": "89a8c47387543c38",
+        "name": "Create",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "timestamp",
+                "v": "iso",
+                "vt": "date"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "7",
+        "topic": "MQTT_CREATE_TOPIC",
+        "payload": "{\"array_len\":2,\"group\":[]}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 520,
+        "wires": [
+            [
+                "e567b7ae271c3813"
+            ]
+        ]
+    },
+    {
+        "id": "129972e7764dc1c2",
+        "type": "inject",
+        "z": "89a8c47387543c38",
+        "name": "Delete",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            },
+            {
+                "p": "timestamp",
+                "v": "iso",
+                "vt": "date"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "30",
+        "topic": "MQTT_DELETE_TOPIC",
+        "payload": "{\"array_len\":2,\"group\":[]}",
+        "payloadType": "json",
+        "x": 150,
+        "y": 640,
+        "wires": [
+            [
+                "e6ea97d704a68a6c"
+            ]
+        ]
+    },
+    {
+        "id": "aa9062e85e39a866",
+        "type": "function",
+        "z": "89a8c47387543c38",
+        "name": "delete group in map",
+        "func": "let groupMap = global.get('groupMap') || {};\nlet lifetimeMap = global.get('lifetimeMap') || {};\nlet time;\n\n\nif(groupMap[msg.payload.group])\n{\n    time = Date.now() - groupMap[msg.payload.group];\n    lifetimeMap[msg.payload.group] = time;\n    delete groupMap[msg.payload.group];\n    global.set('groupMap', groupMap);\n    global.set('lifetimeMap', lifetimeMap);\n\n    msg.payload = \"Il gruppo : \" + msg.payload.group + \" e' durato : \" + ((time / 1000) / 60).toFixed(0) + \" minuti\";\n} else{\n    msg.payload = \"Il gruppo non è stato creato ancora \";\n}\n    \nnode.warn(\"Group Map after deletion: \" + JSON.stringify(groupMap));\n    \nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "// Code added here will be run once\n// whenever the node is started.\ncontext.set(\"maxPM25\", 0);\n",
+        "finalize": "",
+        "libs": [],
+        "x": 760,
+        "y": 640,
+        "wires": [
+            [
+                "92c157af49355f1a"
+            ]
+        ]
+    },
+    {
+        "id": "92c157af49355f1a",
+        "type": "debug",
+        "z": "89a8c47387543c38",
+        "name": "debug 9",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "8280b2bde7484afa",
+        "type": "function",
+        "z": "89a8c47387543c38",
+        "name": "Cardinality check",
+        "func": "\nfunction createNodo(key,keyCheck,cardinality){\n\n\n    if (statsMap[keyCheck] != null){\n\n\n        statsMap[keyCheck].cardinalities.push(cardinality);\n        if (cardinality > statsMap[keyCheck].max) statsMap[keyCheck].max = cardinality;\n        if (cardinality < statsMap[keyCheck].min) statsMap[keyCheck].min = cardinality;\n        statsMap[keyCheck].sum += cardinality;\n        statsMap[keyCheck].count++;\n        statsMap[keyCheck].average = statsMap[keyCheck].sum / statsMap[keyCheck].count\n\n        statsMap[key] = statsMap[keyCheck];\n        groupMap[key] = groupMap[keyCheck];\n\n        delete statsMap[keyCheck];\n        delete groupMap[keyCheck];\n\n        global.set('groupMap', groupMap);\n\n    }else{\n        node.warn(\"Nodo non ancora creato\");\n        return;\n    }\n        \n\n}\n\nlet statsMap = context.get('statsMap') || {};\nlet groupMap = global.get('groupMap') || {}; \n\n\n\n//caso is_removing = 1 -> group = group + addr\n//caso is_removing = 0 -> group = group - addr\n\nlet group = msg.payload.group.slice();\nlet groupcheck = msg.payload.group;\n\nlet key = group.join(',');\n\nnode.warn(\"is_removing: \" + msg.payload.is_removing);\n\nif(msg.payload.is_removing == 1){\n    let cardinality = msg.payload.array_len;\n    groupcheck.push(msg.payload.addr);\n    let keyCheck = groupcheck.sort((a, b) => a - b).join(',');\n\n\n    createNodo(key,keyCheck, cardinality);\n\n}else if (msg.payload.is_removing == 0){\n\n    let elementToRemove = msg.payload.addr;\n    let index = msg.payload.group.indexOf(elementToRemove); // Trova l'indice dell'elemento\n    let cardinality = msg.payload.array_len;\n\n    if (index > -1) {\n        groupcheck.splice(index, 1) ; // Rimuove l'elemento all'indice specificato\n    }\n\n    let keyCheck = groupcheck.sort((a, b) => a - b).join(',');\n\n\n    createNodo(key,keyCheck, cardinality);\n    \n\n} else{\n\n    let cardinality = msg.payload.group.length;\n\n    if (statsMap[key] == null) {\n        statsMap[key] = {   // Inizializza l'oggetto\n            cardinalities: [cardinality],   // Inizializza l'array delle cardinalità\n            max: cardinality,\n            min: cardinality,\n            sum: cardinality,\n            count: 1,\n            average : cardinality\n        };\n\n\n    }else{\n        node.warn(\"Nodo gia' creato\");\n    }\n}\n\n\ncontext.set('statsMap', statsMap);\n\nnode.warn(\"Stats Map after creation: \" + JSON.stringify(statsMap));\n\nmsg.payload = statsMap;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 750,
+        "y": 320,
+        "wires": [
+            [
+                "59e48ae07626ff67"
+            ]
+        ]
+    },
+    {
+        "id": "59e48ae07626ff67",
+        "type": "debug",
+        "z": "89a8c47387543c38",
+        "name": "debug 10",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 960,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "6a6fe3610c7f0c66",
+        "type": "function",
+        "z": "89a8c47387543c38",
+        "name": "function 8",
+        "func": "let groupMap = global.get('groupMap') || {};\n\nlet chiavi = Object.keys(groupMap);\n\nif(chiavi.length != 0){\n    \n    let index = Math.floor(Math.random() * chiavi.length);\n    let chiaveScelta = chiavi[index];\n    let nodesMap = global.get('nodesMap') || {};\n\n    let group = chiaveScelta.split(\",\").map(Number);\n    let is_removing;\n\n    if(group.length == 3) is_removing = 0;\n    else is_removing = (Math.floor(Math.random() * 2));\n \n\n    if(is_removing == 0){\n\n        let chiavi_nodes = Object.keys(nodesMap);\n        let newIp;\n        let exist = false;\n\n        do\n        {\n            exist = false;\n            index = Math.floor(Math.random() * chiavi_nodes.length);  \n            newIp = chiavi_nodes.splice(index, 1)[0];\n\n            group.forEach(function (ip) {\n                if (Number(newIp) === ip) exist = true;\n            });\n\n        }while(exist);\n        \n\n        let ip_ok = true;\n\n        if(newIp != null){\n\n            group.push(newIp);\n\n            group.sort((a, b) => a - b);\n\n\n            msg.payload.group = group;\n            msg.payload.array_len = group.length;\n            msg.payload.is_removing = is_removing;\n            msg.payload.addr = newIp;\n\n        }else\n        {\n            node.warn(\"Non ci sono nodi disponibili\");\n            return;\n\n        }\n\n        /*  Gestione randomica\n        do {\n\n\n            newIp = (Math.floor(Math.random() * 1000) + 1);\n            group.forEach(function (ip) {\n                if (newIp == ip) ip_ok = false;\n            });\n\n\n        } while (ip_ok != true);*/\n\n\n        \n\n    }else{\n\n        let removeIp;\n\n        let index = Math.floor(Math.random() * group.length);\n        removeIp = group[index];\n        \n        group.splice(index, 1);\n\n        msg.payload.group = group;\n        msg.payload.array_len = group.length;\n        msg.payload.is_removing = is_removing;\n        msg.payload.addr = removeIp;\n\n    }\n\n    node.warn(\"Gruppo modificato: \" + JSON.stringify(msg));\n\n    return msg;\n\n}else{\n    node.warn(\"Gruppo non creato\");\n    return;\n}\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 320,
+        "wires": [
+            [
+                "0fa6605ef3f64379",
+                "8280b2bde7484afa"
+            ]
+        ]
+    },
+    {
+        "id": "e567b7ae271c3813",
+        "type": "function",
+        "z": "89a8c47387543c38",
+        "name": "function 9",
+        "func": "\nlet array_len = 3;\n\nlet payload = {\n    \"array_len\": array_len,\n    group: []\n};\n\n\nlet nodes_len;\nlet nodesMap = global.get('nodesMap') || {};\n\nlet chiavi = Object.keys(nodesMap);\nlet exist = false;\nlet index;\n\nif (chiavi.length >= 3){\n\n    for (let i = 0; i < 3; i++) {\n        index = Math.floor(Math.random() * chiavi.length);\n        let value = chiavi.splice(index, 1)[0];\n        payload.group.push(value);\n    }\n\n}else{\n    node.warn(\"Non ci sono abbastanza nodi\");\n    return;\n}\n\npayload.group.sort((a, b) => a - b);\nmsg.payload = payload;\n\nnode.warn(\"Msg create: \" + JSON.stringify(msg));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 520,
+        "wires": [
+            [
+                "65325cb65c899988",
+                "0fa6605ef3f64379",
+                "8280b2bde7484afa"
+            ]
+        ]
+    },
+    {
+        "id": "e6ea97d704a68a6c",
+        "type": "function",
+        "z": "89a8c47387543c38",
+        "name": "function 10",
+        "func": "let groupMap = global.get('groupMap') || {};\nlet chiavi = Object.keys(groupMap);\n\nif(chiavi.length != 0){\nlet index = Math.floor(Math.random() * chiavi.length);\nlet chiaveScelta = chiavi[index];\n\nlet group = chiaveScelta.split(\"-\");\n\nmsg.payload.group = group;\nmsg.payload.array_len = group.length;\n    return msg;\n} else {\n    node.warn(\"Non ci sono gruppi creati\");\n    return;\n}\n\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 360,
+        "y": 640,
+        "wires": [
+            [
+                "aa9062e85e39a866"
+            ]
+        ]
+    },
+    {
+        "id": "aa366809759b5aba",
+        "type": "inject",
+        "z": "89a8c47387543c38",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 740,
+        "wires": [
+            [
+                "f4ec7cc24209aeff"
+            ]
+        ]
+    },
+    {
+        "id": "f4ec7cc24209aeff",
+        "type": "function",
+        "z": "89a8c47387543c38",
+        "name": "Delete",
+        "func": "\nglobal.keys().forEach(function(key) {\n    global.set(key, undefined);  // Elimina completamente ogni chiave\n});\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 370,
+        "y": 740,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "50d2889fb280da19",
+        "type": "inject",
+        "z": "89a8c47387543c38",
+        "name": "Insert nodo",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "NODE_INSERT_TOPIC",
+        "payload": "{\"ip\":\"123\",\"nationality\":\"Italian\",\"age\":30}",
+        "payloadType": "json",
+        "x": 160,
+        "y": 160,
+        "wires": [
+            [
+                "4e994d613a5f53ac"
+            ]
+        ]
+    },
+    {
+        "id": "b6f797296f705d05",
+        "type": "function",
+        "z": "89a8c47387543c38",
+        "name": "Save new node",
+        "func": "let nodesMap = global.get('nodesMap') || {};\nnodesMap[msg.payload.ip] = {\n    \"nationality\" : msg.payload.nationality,\n    \"age\" : msg.payload.age\n}\n\nglobal.set('nodesMap', nodesMap);\n\nmsg.payload = \"Create node: \" + msg.payload;\n\nnode.warn(\"Node Map after creation: \" + JSON.stringify(nodesMap));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 600,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4e994d613a5f53ac",
+        "type": "function",
+        "z": "89a8c47387543c38",
+        "name": "function 11",
+        "func": "let new_ip;\nlet nodesMap = global.get('nodesMap') || {};\nlet chiavi = Object.keys(nodesMap);\nlet exist = false;\ndo{\n    exist = false;\n    new_ip = (Math.floor(Math.random() * 1000) + 1);\n    \n    chiavi.forEach(function (ip) {\n                if (new_ip == ip) exist = true;\n            });\n\n}while(exist);\n\nmsg.payload.ip = new_ip;\nmsg.payload.nationality = \"italian\";\nmsg.payload.age = (Math.floor(Math.random() * 50)+15);\n\nnode.warn(\"Node generated : \" + JSON.stringify(msg));\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 340,
+        "y": 160,
+        "wires": [
+            [
+                "b6f797296f705d05"
+            ]
+        ]
+    },
+    {
+        "id": "0fa6605ef3f64379",
+        "type": "function",
+        "z": "89a8c47387543c38",
+        "name": "Send to MQTT",
+        "func": "let new_ip;\nlet nodesMap = global.get('nodesMap') || {};\nlet group = {};\n\n\nif (msg.topic == 'MQTT_CREATE_TOPIC'){\n    msg.payload.group.forEach(function (ip) {\n        let singleMessage = {\n            \"ip\": ip,\n            \"nationality\": nodesMap[ip].nationality,\n            \"age\": nodesMap[ip].age\n        }\n\n\n        msg.payload = singleMessage;\n        node.send(msg);\n    });\n}else{\n\n    let ip = msg.payload.addr;\n    let singleMessage = {\n        \"ip\": ip,\n        \"nationality\": nodesMap[ip].nationality,\n        \"age\": nodesMap[ip].age\n    }\n\n\n    msg.payload = singleMessage;\n    node.send(msg);\n}\n\n\n//if(msg.topic == 'MQTT_CARDINALITY_TOPIC') msg.timestamp = Date.now();\n\n//msg.payload.group = group;\n\n//node.warn(\"Gruppo: \" + JSON.stringify(msg));\n\n\n\nreturn null;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 440,
+        "wires": [
+            [
+                "d4c9c430d15cca96",
+                "a6c78f5d3dc2799d"
+            ]
+        ]
+    },
+    {
+        "id": "d4c9c430d15cca96",
+        "type": "debug",
+        "z": "89a8c47387543c38",
+        "name": "debug 11",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "8cd34f9cefa4294a",
+        "type": "mqtt out",
+        "z": "89a8c47387543c38",
+        "name": "",
+        "topic": "msg.topic",
+        "qos": "2",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1e263e43b114a5fd",
+        "x": 1220,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "a6c78f5d3dc2799d",
+        "type": "json",
+        "z": "89a8c47387543c38",
+        "name": "From js to JSON",
+        "property": "payload",
+        "action": "str",
+        "pretty": true,
+        "x": 1020,
+        "y": 420,
+        "wires": [
+            [
+                "8cd34f9cefa4294a"
+            ]
+        ]
+    }
+]
